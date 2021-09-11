@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './App.css';
 
 import firebase from 'firebase/compat/app';
@@ -28,11 +28,14 @@ function App() {
   return (
     <div className="App">
       <header>
-      <h1>Chatroom by Allison</h1>
+        <h1>Chatroom by Allison</h1>
+        <SignOut />
       </header>
       <section>
         {user ? <ChatRoom /> : <SignIn />}
+        
       </section>
+      
     </div>
   );
 }
@@ -46,20 +49,22 @@ function SignIn() {
   return (
     <>
       <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
-      <p>Do not violate the community guidelines!</p>
+      <p>Welcome to Allison's chatroom, please be kind to eachother!</p>
     </>
   )
 
 }
 
-function signOut() {
+function SignOut() {
   return auth.currentUser && (
 
-    <button onClick={() => auth.signOut()}>Sign Out</button>
+    <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
   )
 }
 
 function ChatRoom() {
+  const dummy = useRef()
+
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt').limit(25);
 
@@ -81,13 +86,15 @@ function ChatRoom() {
 
     setFormValue('');
 
+    dummy.current.scrollIntoView({ bahvior: 'smooth'})
+
   }
 
   return (
     <>
       <main>
 
-          {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
         <div ref={dummy}></div>
       </main>
       
