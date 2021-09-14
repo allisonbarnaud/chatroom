@@ -1,6 +1,14 @@
-# chat room application
+# chat room application, by Allison
 
-login with google
-database using firebase by Google, nosql
-deploy with github
+Login:
+Google Authentication
+
+Database: 
+firebase by Google
+
+Frontend:
+React
+
+Language:
+JSX
 
